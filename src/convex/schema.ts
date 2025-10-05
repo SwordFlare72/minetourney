@@ -19,25 +19,85 @@ export type Role = Infer<typeof roleValidator>;
 const schema = defineSchema(
   {
     // default auth tables using convex auth.
-    ...authTables, // do not remove or modify
+    ...authTables,
 
-    // the users table is the default users table that is brought in by the authTables
     users: defineTable({
-      name: v.optional(v.string()), // name of the user. do not remove
-      image: v.optional(v.string()), // image of the user. do not remove
-      email: v.optional(v.string()), // email of the user. do not remove
-      emailVerificationTime: v.optional(v.number()), // email verification time. do not remove
-      isAnonymous: v.optional(v.boolean()), // is the user anonymous. do not remove
+      name: v.optional(v.string()),
+      image: v.optional(v.string()),
+      email: v.optional(v.string()),
+      emailVerificationTime: v.optional(v.number()),
+      isAnonymous: v.optional(v.boolean()),
+      role: v.optional(roleValidator),
+      
+      // Gaming profile fields
+      username: v.optional(v.string()),
+      minecraftUsername: v.optional(v.string()),
+      totalWins: v.optional(v.number()),
+      totalMatches: v.optional(v.number()),
+      rank: v.optional(v.string()),
+      walletBalance: v.optional(v.number()),
+    }).index("email", ["email"]),
 
-      role: v.optional(roleValidator), // role of the user. do not remove
-    }).index("email", ["email"]), // index for the email. do not remove or modify
+    games: defineTable({
+      name: v.string(),
+      description: v.string(),
+      image: v.string(),
+      icon: v.string(),
+      isActive: v.boolean(),
+      minPlayers: v.number(),
+      maxPlayers: v.number(),
+    }),
 
-    // add other tables here
+    matches: defineTable({
+      gameId: v.id("games"),
+      title: v.string(),
+      status: v.union(
+        v.literal("upcoming"),
+        v.literal("live"),
+        v.literal("completed"),
+        v.literal("cancelled")
+      ),
+      entryFee: v.number(),
+      prizePool: v.number(),
+      maxPlayers: v.number(),
+      currentPlayers: v.number(),
+      startTime: v.number(),
+      endTime: v.optional(v.number()),
+      winnerId: v.optional(v.id("users")),
+    })
+      .index("by_game", ["gameId"])
+      .index("by_status", ["status"]),
 
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    matchParticipants: defineTable({
+      matchId: v.id("matches"),
+      userId: v.id("users"),
+      placement: v.optional(v.number()),
+      kills: v.optional(v.number()),
+      deaths: v.optional(v.number()),
+      score: v.optional(v.number()),
+      reward: v.optional(v.number()),
+    })
+      .index("by_match", ["matchId"])
+      .index("by_user", ["userId"])
+      .index("by_match_and_user", ["matchId", "userId"]),
+
+    transactions: defineTable({
+      userId: v.id("users"),
+      type: v.union(
+        v.literal("deposit"),
+        v.literal("withdrawal"),
+        v.literal("match_entry"),
+        v.literal("match_reward")
+      ),
+      amount: v.number(),
+      description: v.string(),
+      matchId: v.optional(v.id("matches")),
+      status: v.union(
+        v.literal("pending"),
+        v.literal("completed"),
+        v.literal("failed")
+      ),
+    }).index("by_user", ["userId"]),
   },
   {
     schemaValidation: false,
