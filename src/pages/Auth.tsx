@@ -108,7 +108,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                   <div className="relative">
                     <img
                       src="./logo.svg"
-                      alt="MineTourney Logo"
+                      alt="BlockArena Logo"
                       width={80}
                       height={80}
                       className="rounded-2xl cursor-pointer"

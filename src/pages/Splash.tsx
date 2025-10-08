@@ -54,7 +54,7 @@ export default function Splash() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="text-4xl font-bold text-white tracking-tight mb-2"
         >
-          MineTourney
+          BlockArena
         </motion.h1>
         
         <motion.p
