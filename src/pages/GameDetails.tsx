@@ -33,14 +33,14 @@ export default function GameDetails() {
 
   if (!game || !matches) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen bg-gradient-to-b from-[#0a0e27] via-[#1a1147] to-[#2d1b69] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pb-20 bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0e27] via-[#1a1147] to-[#2d1b69] pb-20">
       <div className="max-w-lg mx-auto">
         {/* Header with Game Info */}
         <motion.div
@@ -53,23 +53,23 @@ export default function GameDetails() {
             alt={game.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/50 to-transparent" />
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-4 left-4 bg-background/80 backdrop-blur cursor-pointer"
+            className="absolute top-4 left-4 bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 cursor-pointer"
             onClick={() => navigate("/home")}
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-5 w-5 text-white" />
           </Button>
           <div className="absolute bottom-4 left-4 right-4">
             <div className="flex items-center gap-3">
-              <span className="text-4xl">{game.icon}</span>
+              <span className="text-5xl">{game.icon}</span>
               <div>
                 <h1 className="text-2xl font-bold tracking-tight text-white">
                   {game.name}
                 </h1>
-                <p className="text-sm text-white/80">{game.description}</p>
+                <p className="text-sm text-white/70">{game.description}</p>
               </div>
             </div>
           </div>
@@ -77,13 +77,13 @@ export default function GameDetails() {
 
         {/* Matches List */}
         <div className="p-4">
-          <h2 className="text-xl font-bold tracking-tight mb-4">
+          <h2 className="text-xl font-bold tracking-tight text-white mb-4">
             Available Matches
           </h2>
           <div className="space-y-4">
             {matches.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">
+                <p className="text-white/50">
                   No matches available for this game
                 </p>
               </div>

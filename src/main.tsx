@@ -8,7 +8,7 @@ import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
-import Landing from "./pages/Landing.tsx";
+import Splash from "./pages/Splash.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Home from "./pages/Home.tsx";
 import GameDetails from "./pages/GameDetails.tsx";
@@ -50,7 +50,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <RouteSyncer />
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Splash />} />
             <Route path="/auth" element={<AuthPage redirectAfterAuth="/home" />}/>
             <Route path="/home" element={<Home />} />
             <Route path="/game/:gameId" element={<GameDetails />} />
