@@ -1,0 +1,20 @@
+import { CapacitorConfig } from '@capacitor/core';
+
+const config: CapacitorConfig = {
+  appId: 'com.blockarena.app',
+  appName: 'BlockArena',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https',
+    cleartext: true
+  },
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      backgroundColor: "#0a0e27",
+      showSpinner: false
+    }
+  }
+};
+
+export default config;
