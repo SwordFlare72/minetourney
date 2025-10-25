@@ -1,1 +1,6 @@
-"crud": "link:convex-helpers/server/crud"
+{
+  "server": {
+    "url": "https://enduring-barracuda-778.convex.site",
+    "cleartext": true
+  }
+}
